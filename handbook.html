@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>USCSS HANDBOOK // PROTOCOLS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #05060a;
+      --color-panel: #0b0e14;
+      --color-border: #1f2937;
+      --neon-blue: #00f3ff;
+      --neon-red: #ff003c;
+      --neon-amber: #ff9d00;
+      --neon-green: #0aff00;
+      --neon-purple: #bc13fe;
+      --font-main: 'Share Tech Mono', monospace;
+      --font-display: 'Rajdhani', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background-color: var(--color-bg);
+      color: #c0c7d6;
+      font-family: var(--font-main);
+      padding: 20px;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* --- VISUAL EFFECTS --- */
+    .bg-grid {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: linear-gradient(rgba(18, 16, 16, 0) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(18, 16, 16, 0) 1px, transparent 1px);
+      background-size: 20px 20px; opacity: 0.1; z-index: -1;
+    }
+    .scanlines {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+      background-size: 100% 4px; z-index: 9999; pointer-events: none; opacity: 0.4;
+    }
+
+    /* --- LAYOUT --- */
+    .container { max-width: 1000px; margin: 0 auto; }
+
+    header {
+      text-align: center; border-bottom: 2px solid var(--color-border);
+      padding-bottom: 1rem; margin-bottom: 2rem;
+    }
+    h1 {
+      font-family: var(--font-display); font-size: 2.5rem; margin: 0;
+      color: var(--neon-blue); text-transform: uppercase; letter-spacing: 4px;
+      text-shadow: 0 0 10px rgba(0, 243, 255, 0.4);
+    }
+    .subtitle { color: var(--neon-amber); letter-spacing: 2px; font-size: 0.9rem; }
+
+    /* --- SECTION 1: TURN STRUCTURE --- */
+    .phase-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 15px; margin-bottom: 3rem;
+    }
+
+    .phase-card {
+      background: rgba(11, 14, 20, 0.9); border: 1px solid #333;
+      padding: 15px; position: relative; overflow: hidden;
+    }
+    .phase-card::before {
+      content: ''; position: absolute; top:0; left:0; width: 4px; height: 100%;
+      background: var(--neon-blue);
+    }
+    .phase-card h3 {
+      margin: 0 0 10px 0; color: #fff; font-family: var(--font-display);
+      font-size: 1.4rem; border-bottom: 1px solid #333; padding-bottom: 5px;
+    }
+    .phase-card h3 span { color: var(--neon-blue); font-size: 0.8em; margin-right: 5px; }
+
+    .phase-detail { font-size: 0.85rem; line-height: 1.4; color: #aaa; }
+    .phase-detail strong { color: #fff; }
+    .phase-sub { margin-top: 8px; padding-left: 10px; border-left: 2px solid #444; }
+    .highlight-red { color: var(--neon-red); }
+    .highlight-green { color: var(--neon-green); }
+
+    /* --- SECTION 2: ROLES --- */
+    .section-title {
+      font-family: var(--font-display); font-size: 1.8rem; color: #fff;
+      margin-bottom: 1.5rem; border-left: 5px solid var(--neon-amber); padding-left: 15px;
+    }
+
+    .role-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .role-card {
+      background: linear-gradient(145deg, #0b0e14, #121620);
+      border: 1px solid var(--color-border); padding: 0;
+      transition: transform 0.2s;
+    }
+    .role-card:hover { transform: translateY(-5px); border-color: var(--neon-blue); }
+
+    .role-header {
+      padding: 15px; background: rgba(255,255,255,0.05);
+      border-bottom: 1px solid var(--color-border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .role-name { font-family: var(--font-display); font-size: 1.4rem; font-weight: bold; color: #fff; text-transform: uppercase; }
+    .role-uses { font-size: 0.8rem; color: var(--neon-amber); border: 1px solid var(--neon-amber); padding: 2px 6px; border-radius: 4px;}
+
+    .role-body { padding: 15px; }
+    .ability { margin-bottom: 12px; }
+    .ability-name { color: var(--neon-blue); font-weight: bold; font-size: 1rem; margin-bottom: 4px; }
+    .ability-desc { font-size: 0.85rem; color: #9ca3af; line-height: 1.3; }
+
+    /* Specific Role Accents */
+    .role-military { border-top: 3px solid var(--neon-red); }
+    .role-biologist { border-top: 3px solid var(--neon-green); }
+    .role-engineer { border-top: 3px solid var(--neon-amber); }
+    .role-scientist { border-top: 3px solid var(--neon-blue); }
+    .role-pilot { border-top: 3px solid #00bfff; }
+    .role-medic { border-top: 3px solid #fff; }
+
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="scanlines"></div>
+
+  <div class="container">
+    <header>
+      <h1>Mission Handbook</h1>
+      <div class="subtitle">TURN STRUCTURE & PERSONNEL DATA // USCSS PROMETHEUS</div>
+    </header>
+
+    <div class="section-title">>> OPERATIONAL CYCLE (6 PHASES)</div>
+    <div class="phase-grid">
+      
+      <div class="phase-card">
+        <h3><span>01</span> BRIEFING</h3>
+        <div class="phase-detail">
+          <strong>1. Location Check:</strong> Announce your current Room/Tile.<br>
+          <strong>2. Action Selection:</strong> Place Action Card Face-Down.<br>
+          <em style="color:#666; display:block; margin-top:5px;">WARNING: Decisions are locked. No changes allowed.</em>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <h3><span>02</span> EXECUTION</h3>
+        <div class="phase-detail">
+          <strong>HUMAN:</strong> Resolve Chosen Action.
+          <ul style="margin:5px 0; padding-left:20px; font-size:0.8rem;">
+            <li>Move (1 Tile Free, +1 Energy per extra)</li>
+            <li>Search (2 Energy -> Draw Item/Resource)</li>
+            <li>Door (1-2 Energy -> Creates Noise)</li>
+            <li>Hide (Invisible until move/reveal)</li>
+            <li>Role Ability / Item</li>
+          </ul>
+          <div class="phase-sub">
+            <strong class="highlight-red">POSSESSED:</strong> Twisted Action, Sensory Overload (Reveal hidden), or Interference (Sanity Roll).
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <h3><span>03</span> THE THREAT</h3>
+        <div class="phase-detail">
+          <strong>GM/System Draws Cards:</strong>
+          <br>Count = 1 Base + 1 per Possessed + Alarm Status.
+          <div class="phase-sub">
+            <strong>Resolves:</strong> Hunt Cards, Swarm Instincts (Chain Draw), and Environmental Hazards.
+          </div>
+          <div class="phase-sub">
+             <strong class="highlight-red">UPLINK:</strong> Possessed players may play Interference cards now.
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <h3><span>04</span> RESOLUTION</h3>
+        <div class="phase-detail">
+          <strong>Alien Movement:</strong>
+          <br>The Entity moves X tiles according to the Hunt Cards drawn in Phase 3.
+          <br><br>
+          <em>Prioritizes: Noise > Sight > Energy > Random</em>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <h3><span>05</span> ENCOUNTER</h3>
+        <div class="phase-detail">
+          Triggers if Alien enters Player Tile.
+          <br><br>
+          <strong>1st Encounter:</strong> <span class="highlight-green">ESCAPE.</span> Player flees 1 tile (Hidden). <span class="highlight-red">ALARM TRIGGERS</span> (+1 Threat Level).
+          <br><br>
+          <strong>2nd Encounter:</strong> <span class="highlight-red">POSSESSION.</span> Player joins the Hive Mind.
+          <br><br>
+          <em style="font-size:0.8em">Biologist Exorcism available here if conditions met.</em>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <h3><span>06</span> REACTION</h3>
+        <div class="phase-detail">
+          Triggers if Alien is <strong>< 3 Tiles</strong> away (and player is not in Safe Room).
+          <br><br>
+          <strong>Available Instant Actions:</strong>
+          <ul style="margin:5px 0; padding-left:20px; font-size:0.8rem;">
+            <li><strong>Yell:</strong> Distract Alien to your tile.</li>
+            <li><strong>Trap:</strong> Activate set trap (Stun).</li>
+            <li><strong>Guard:</strong> Ally takes the hit (Roll d6: 3+ Success).</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section-title">>> CREW MANIFEST</div>
+    <div class="role-grid">
+
+      <div class="role-card role-military">
+        <div class="role-header">
+          <div class="role-name">MILITARY</div>
+          <div class="role-uses">3 USES</div>
+        </div>
+        <div class="role-body">
+          <div class="ability">
+            <div class="ability-name">DEPLOY TRAP</div>
+            <div class="ability-desc">Place a hidden token. If Alien enters, it is STUNNED for 1 turn.</div>
+          </div>
+          <div class="ability">
+            <div class="ability-name">TACTICAL RALLY</div>
+            <div class="ability-desc">Grant an adjacent ally +1 Action immediately.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="role-card role-biologist">
+        <div class="role-header">
+          <div class="role-name">BIOLOGIST</div>
+          <div class="role-uses">2 USES</div>
+        </div>
+        <div class="role-body">
+          <div class="ability">
+            <div class="ability-name">INCAPACITATE</div>
+            <div class="ability-desc">If in same room as Alien: Freeze Alien for 1 turn.</div>
+          </div>
+          <div class="ability">
+            <div class="ability-name">EXORCISM</div>
+            <div class="ability-desc">Reset a rooted Possessed player to Human status. (Capture count resets).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="role-card role-engineer">
+        <div class="role-header">
+          <div class="role-name">ENGINEER</div>
+          <div class="role-uses">3 USES</div>
+        </div>
+        <div class="role-body">
+          <div class="ability">
+            <div class="ability-name">AUXILIARY POWER</div>
+            <div class="ability-desc">Restore +3 Energy to the Station Reserves.</div>
+          </div>
+          <div class="ability">
+            <div class="ability-name">OVERRIDE</div>
+            <div class="ability-desc">Open any Door for FREE (0 Energy Cost).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="role-card role-scientist">
+        <div class="role-header">
+          <div class="role-name">SCIENTIST</div>
+          <div class="role-uses">2 USES</div>
+        </div>
+        <div class="role-body">
+          <div class="ability">
+            <div class="ability-name">PRECOGNITION</div>
+            <div class="ability-desc">Peek at the top card of the Alien/Hunt Deck.</div>
+          </div>
+          <div class="ability">
+            <div class="ability-name">RAPID RESEARCH</div>
+            <div class="ability-desc">When Searching: Draw 2 Cards instead of 1. Keep both.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="role-card role-pilot">
+        <div class="role-header">
+          <div class="role-name">PILOT</div>
+          <div class="role-uses">2 USES</div>
+        </div>
+        <div class="role-body">
+          <div class="ability">
+            <div class="ability-name">SPRINT</div>
+            <div class="ability-desc">Move 2 Tiles for a single Move Action (Free).</div>
+          </div>
+          <div class="ability">
+            <div class="ability-name">HOTWIRE</div>
+            <div class="ability-desc">Reduce Escape Pod activation cost by 3 Energy.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="role-card role-medic">
+        <div class="role-header">
+          <div class="role-name">MEDICAL</div>
+          <div class="role-uses">1 USE</div>
+        </div>
+        <div class="role-body">
+          <div class="ability">
+            <div class="ability-name">STABILIZE</div>
+            <div class="ability-desc">Reset Capture Counter for yourself or adjacent player (Prevents Possession).</div>
+          </div>
+          <div class="ability">
+            <div class="ability-name">ADRENALINE</div>
+            <div class="ability-desc">Reduce Action Cost by -1 Energy for this turn.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    
+    <footer style="margin-top: 3rem; text-align: center; color: #444; font-size: 0.8rem;">
+      USCSS DECK CONTROL // TERMINAL 404
+    </footer>
+  </div>
+</body>
+</html>

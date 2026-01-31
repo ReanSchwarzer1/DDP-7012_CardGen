@@ -193,11 +193,14 @@ function drawHunt() {
   }
   
   const card = huntDeck.shift();
+  if(!card) return; // Safety Check
+
   updateStatusUI();
   logDraw("Hunt", card);
 
-  // LOGIC FIX: Handle 1 or 2 Environmental Hazards
   const effectText = card.effect.toLowerCase();
+  
+  // Handle Hazard Logic
   if (effectText.includes("resolve 2 environmental hazard")) {
      setTimeout(() => drawEnvironmental(true), 400);
      setTimeout(() => drawEnvironmental(true), 1200);
@@ -205,29 +208,30 @@ function drawHunt() {
      setTimeout(() => drawEnvironmental(true), 400);
   }
 
-  // LOGIC FIX: Staggered Swarm Instinct
+  // Handle Swarm Logic
   if (card.id.includes("swarm_instinct")) {
     let extraDraws = 1; 
     if(card.id.includes("omega")) extraDraws = 3;
 
     setTimeout(() => {
         for (let i = 0; i < extraDraws; i++) {
-            // Stagger each draw by 800ms so they don't appear instantly
             setTimeout(() => {
                 if (huntDeck.length === 0) {
                     huntDeck = buildHuntDeckForTier(getHuntTier(currentTurn));
                     logDraw("System", {name: "CYCLE_HUNT", effect: "Hunt deck depleted during Swarm. Reshuffling..."});
                 }
                 const extraCard = huntDeck.shift();
-                logDraw("Hunt", extraCard, `>> SWARM ACTIVATION [${i+1}/${extraDraws}]`);
-                
-                // Recursion check for hazards in swarm cards
-                const extraEffect = extraCard.effect.toLowerCase();
-                if (extraEffect.includes("resolve 2 environmental hazard")) {
-                     setTimeout(() => drawEnvironmental(true), 400);
-                     setTimeout(() => drawEnvironmental(true), 1200);
-                } else if (extraEffect.includes("environmental hazard")) {
-                     setTimeout(() => drawEnvironmental(true), 400);
+                if(extraCard) {
+                    logDraw("Hunt", extraCard, `>> SWARM ACTIVATION [${i+1}/${extraDraws}]`);
+                    
+                    // Recursive Hazard check for the Swarm card
+                    const extraEffect = extraCard.effect.toLowerCase();
+                    if (extraEffect.includes("resolve 2 environmental hazard")) {
+                        setTimeout(() => drawEnvironmental(true), 400);
+                        setTimeout(() => drawEnvironmental(true), 1200);
+                    } else if (extraEffect.includes("environmental hazard")) {
+                        setTimeout(() => drawEnvironmental(true), 400);
+                    }
                 }
                 updateStatusUI();
             }, i * 800);
@@ -242,6 +246,7 @@ function drawEvolve() {
     logDraw("System", {name: "CYCLE_EVOLVE", effect: "Evolve deck recycled."});
   }
   const card = evolveDeck.shift();
+  if(!card) return;
   updateStatusUI();
   logDraw("Evolve", card);
 }
@@ -252,6 +257,7 @@ function drawEscalation() {
     logDraw("System", {name: "CYCLE_EVENT", effect: "Escalation deck recycled."});
   }
   const card = escalationDeck.shift();
+  if(!card) return;
   updateStatusUI();
   logDraw("Escalation", card);
   
@@ -321,4 +327,24 @@ document.getElementById("clearLogBtn").addEventListener("click", () => {
     document.getElementById("logOutput").innerHTML = "";
 });
 
+// --- HANDBOOK TOGGLE ---
+const handbookSection = document.getElementById("handbookSection");
+const toggleHandbookBtn = document.getElementById("toggleHandbookBtn");
+
+if(toggleHandbookBtn && handbookSection) {
+  toggleHandbookBtn.addEventListener("click", () => {
+    if (handbookSection.style.display === "none" || handbookSection.style.display === "") {
+      handbookSection.style.display = "block";
+      toggleHandbookBtn.textContent = "CLOSE HANDBOOK [-]";
+      toggleHandbookBtn.style.background = "rgba(255, 157, 0, 0.1)";
+      handbookSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      handbookSection.style.display = "none";
+      toggleHandbookBtn.textContent = "HANDBOOK [?]";
+      toggleHandbookBtn.style.background = "transparent";
+    }
+  });
+}
+
+// Init
 resetAllDecks();

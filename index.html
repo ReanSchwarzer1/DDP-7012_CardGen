@@ -48,8 +48,10 @@
 
       <div class="buttons-row panel">
         <button id="nextTurnBtn" class="btn-secondary">NEXT_TURN [++]</button>
+        <button id="toggleHandbookBtn" class="btn-secondary" style="border-color: var(--neon-amber); color: var(--neon-amber);">HANDBOOK [?]</button>
         <button id="shuffleAllBtn" class="btn-warning">SYS_RESET</button>
       </div>
+      
       <div class="panel override-panel">
         <a href="possessed.html" class="btn-glitch-link">
           <span class="text">>> OPEN_POSSESSED_UPLINK <<</span>
@@ -74,6 +76,104 @@
       </div>
       <div id="logOutput"></div>
     </section>
+
+    <section id="handbookSection">
+      <h2 style="text-align:center; color: var(--neon-amber); font-family: var(--font-display);">// TACTICAL DATABASE //</h2>
+      
+      <div class="section-title">>> OPERATIONAL CYCLE</div>
+      <div class="phase-grid">
+        <div class="phase-card">
+          <h3><span>01</span> BRIEFING</h3>
+          <div class="phase-detail">
+            <strong>1. Location Check:</strong> Announce Room/Tile.<br>
+            <strong>2. Action Selection:</strong> Place Card Face-Down.<br>
+            <em style="color:#666;">Locked. No take-backs.</em>
+          </div>
+        </div>
+        <div class="phase-card">
+          <h3><span>02</span> EXECUTION</h3>
+          <div class="phase-detail">
+            <strong>HUMAN:</strong> Resolve Action (Move, Search, Door, Hide).
+            <div class="phase-sub"><strong class="highlight-red">POSSESSED:</strong> Twisted Action / Interference.</div>
+          </div>
+        </div>
+        <div class="phase-card">
+          <h3><span>03</span> THREAT</h3>
+          <div class="phase-detail">
+            <strong>Draw Cards:</strong> 1 Base + 1 per Possessed + Alarm.<br>
+            <strong>Resolve:</strong> Hunt, Swarm, Hazards.
+          </div>
+        </div>
+        <div class="phase-card">
+          <h3><span>04</span> RESOLUTION</h3>
+          <div class="phase-detail">
+            <strong>Alien Moves:</strong> X tiles via Hunt Cards.<br>
+            <em>Priority: Noise > Sight > Energy > Random</em>
+          </div>
+        </div>
+        <div class="phase-card">
+          <h3><span>05</span> ENCOUNTER</h3>
+          <div class="phase-detail">
+            <strong>1st:</strong> <span class="highlight-green">ESCAPE</span> (Auto-Hide, Alarm triggers).<br>
+            <strong>2nd:</strong> <span class="highlight-red">POSSESSION</span> (Join Hive Mind).
+          </div>
+        </div>
+        <div class="phase-card">
+          <h3><span>06</span> REACTION</h3>
+          <div class="phase-detail">
+            Triggers if Alien <strong>< 3 Tiles</strong> away.<br>
+            <strong>Actions:</strong> Yell, Trap, Guard (d6: 3+).
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">>> CREW MANIFEST</div>
+      <div class="role-grid">
+        <div class="role-card role-military">
+          <div class="role-header"><div class="role-name">MILITARY</div><div class="role-uses">3 USES</div></div>
+          <div class="role-body">
+            <div class="ability"><div class="ability-name">DEPLOY TRAP</div><div class="ability-desc">Place hidden token. Alien entering is STUNNED 1 turn.</div></div>
+            <div class="ability"><div class="ability-name">TACTICAL RALLY</div><div class="ability-desc">Grant adjacent ally +1 Action immediately.</div></div>
+          </div>
+        </div>
+        <div class="role-card role-biologist">
+          <div class="role-header"><div class="role-name">BIOLOGIST</div><div class="role-uses">2 USES</div></div>
+          <div class="role-body">
+            <div class="ability"><div class="ability-name">INCAPACITATE</div><div class="ability-desc">If in same room: Freeze Alien 1 turn.</div></div>
+            <div class="ability"><div class="ability-name">EXORCISM</div><div class="ability-desc">Reset rooted Possessed player to Human.</div></div>
+          </div>
+        </div>
+        <div class="role-card role-engineer">
+          <div class="role-header"><div class="role-name">ENGINEER</div><div class="role-uses">3 USES</div></div>
+          <div class="role-body">
+            <div class="ability"><div class="ability-name">AUXILIARY POWER</div><div class="ability-desc">Restore +3 Energy to Station.</div></div>
+            <div class="ability"><div class="ability-name">OVERRIDE</div><div class="ability-desc">Open any Door for FREE (0 Energy).</div></div>
+          </div>
+        </div>
+        <div class="role-card role-scientist">
+          <div class="role-header"><div class="role-name">SCIENTIST</div><div class="role-uses">2 USES</div></div>
+          <div class="role-body">
+            <div class="ability"><div class="ability-name">PRECOGNITION</div><div class="ability-desc">Peek at top card of Alien Deck.</div></div>
+            <div class="ability"><div class="ability-name">RAPID RESEARCH</div><div class="ability-desc">Search: Draw 2 Cards, Keep both.</div></div>
+          </div>
+        </div>
+        <div class="role-card role-pilot">
+          <div class="role-header"><div class="role-name">PILOT</div><div class="role-uses">2 USES</div></div>
+          <div class="role-body">
+            <div class="ability"><div class="ability-name">SPRINT</div><div class="ability-desc">Move 2 Tiles for 1 Move Action (Free).</div></div>
+            <div class="ability"><div class="ability-name">HOTWIRE</div><div class="ability-desc">Reduce Escape Pod cost by 3 Energy.</div></div>
+          </div>
+        </div>
+        <div class="role-card role-medic">
+          <div class="role-header"><div class="role-name">MEDICAL</div><div class="role-uses">1 USE</div></div>
+          <div class="role-body">
+            <div class="ability"><div class="ability-name">STABILIZE</div><div class="ability-desc">Reset Capture Counter (Prevent Possession).</div></div>
+            <div class="ability"><div class="ability-name">ADRENALINE</div><div class="ability-desc">Reduce Action Cost by -1 Energy.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <script src="main.js"></script>
