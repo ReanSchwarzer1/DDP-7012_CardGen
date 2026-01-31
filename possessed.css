@@ -1,0 +1,110 @@
+﻿/* --- OVERLAY STYLES --- */
+#roleSelectionOverlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(5, 6, 10, 0.95);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.overlay-content {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  border: 2px solid var(--neon-red);
+  box-shadow: 0 0 50px rgba(255, 0, 60, 0.2);
+}
+
+.overlay-content h1 {
+  color: var(--neon-red);
+  animation: flicker 2s infinite;
+}
+
+.overlay-content p {
+  color: #888;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+}
+
+.btn-role {
+  background: rgba(255, 0, 60, 0.1);
+  border: 1px solid var(--neon-red);
+  color: #fff;
+  padding: 20px;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+
+.btn-role:hover {
+  background: var(--neon-red);
+  color: #000;
+  box-shadow: 0 0 15px var(--neon-red);
+  transform: scale(1.05);
+}
+
+/* --- ACTION PROTOCOLS (New) --- */
+.role-actions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.action-card {
+  background: rgba(255, 0, 60, 0.05);
+  border-left: 3px solid var(--neon-red);
+  padding: 10px;
+  font-size: 0.9rem;
+}
+
+.action-title {
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.action-desc {
+  color: #bbb;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+/* --- INTERFERENCE PANEL --- */
+.interference-panel {
+  border-color: var(--neon-blue);
+}
+
+.interference-desc {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-top: 5px;
+}
+
+@keyframes flicker {
+  0% { opacity: 1; }
+  3% { opacity: 0.4; }
+  6% { opacity: 1; }
+  7% { opacity: 0.4; }
+  8% { opacity: 1; }
+  9% { opacity: 1; }
+  10% { opacity: 0.1; }
+  11% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+/* --- LOG STYLES UPDATE --- */
+.type-hunt { border-color: var(--neon-red); } 
+.type-evolve { border-color: var(--neon-purple); } 
+.type-hazard { border-color: var(--neon-green); }

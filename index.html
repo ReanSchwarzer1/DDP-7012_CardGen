@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>USCSS DECK CONTROL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="scanlines"></div>
+  <div class="bg-grid"></div>
+
+  <main class="app">
+    <header>
+      <div class="header-decoration"></div>
+      <h1>// ALIEN_DECK_SYS //</h1>
+      <div class="system-status">STATUS: ONLINE</div>
+    </header>
+
+    <section class="controls">
+      <div class="turn-control panel">
+        <label>MISSION_TURN:</label>
+        <div class="input-group">
+          <input type="number" id="turnInput" value="1" min="1" max="30" />
+          <button id="setTurnBtn" class="btn-small">SET</button>
+        </div>
+      </div>
+
+      <div class="draw-zone panel">
+        <div class="selector-wrapper">
+          <label for="deckSelector">>> SELECT_PROTOCOL:</label>
+          <select id="deckSelector">
+            <option value="hunt">PROTOCOL: HUNT [STANDARD]</option>
+            <option value="evolve">PROTOCOL: EVOLVE [UPGRADE]</option>
+            <option value="escalation">PROTOCOL: ESCALATION [EVENT]</option>
+            <option value="hazard">PROTOCOL: HAZARD [DANGER]</option>
+          </select>
+        </div>
+        
+        <button id="masterDrawBtn" class="btn-master hunt-mode">
+          <span class="btn-text">INITIATE_DRAW</span>
+          <span class="btn-glitch"></span>
+        </button>
+      </div>
+
+      <div class="buttons-row panel">
+        <button id="nextTurnBtn" class="btn-secondary">NEXT_TURN [++]</button>
+        <button id="shuffleAllBtn" class="btn-warning">SYS_RESET</button>
+      </div>
+      <div class="panel override-panel">
+        <a href="possessed.html" class="btn-glitch-link">
+          <span class="text">>> OPEN_POSSESSED_UPLINK <<</span>
+          <span class="decoration"></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="status panel">
+      <div class="stat-item">TURN: <span id="turnDisplay">1</span></div>
+      <div class="stat-item">TIER: <span id="tierDisplay">1</span></div>
+      <div class="stat-item">HUNT: <span id="huntCount">--</span></div>
+      <div class="stat-item">EVOLVE: <span id="evolveCount">--</span></div>
+      <div class="stat-item">EVENT: <span id="escalationCount">--</span></div>
+      <div class="stat-item">HAZARD: <span id="envCount">--</span></div>
+    </section>
+
+    <section class="log panel">
+      <div class="log-header">
+        <h2>>> MISSION_LOG</h2>
+        <button id="clearLogBtn" class="btn-xs">CLEAR</button>
+      </div>
+      <div id="logOutput"></div>
+    </section>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>

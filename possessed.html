@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POSSESSED UPLINK</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="possessed.css" />
+</head>
+<body class="possessed-theme">
+  <div class="scanlines"></div>
+  <div class="bg-grid"></div>
+
+  <div id="roleSelectionOverlay">
+    <div class="overlay-content panel">
+      <h1>>> IDENTIFY HOST ORGANISM <<</h1>
+      <p>SELECT THE CREW MEMBER COMPROMISED:</p>
+      <div class="role-grid">
+        <button class="btn-role" data-role="military">MILITARY</button>
+        <button class="btn-role" data-role="biologist">BIOLOGIST</button>
+        <button class="btn-role" data-role="engineer">ENGINEER</button>
+        <button class="btn-role" data-role="scientist">SCIENTIST</button>
+        <button class="btn-role" data-role="pilot">PILOT</button>
+        <button class="btn-role" data-role="medic">MEDICAL</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="app" style="filter: blur(5px); transition: filter 0.5s;">
+    <header>
+      <div class="header-decoration"></div>
+      <h1>// HIVE_MIND_LINK //</h1>
+      <div class="system-status">HOST: <span id="hostDisplay">PENDING...</span></div>
+    </header>
+
+    <section class="controls">
+      
+      <div class="panel actions-panel" id="actionsPanel" style="display:none;">
+        <div class="panel-header" style="color:var(--neon-red); margin-bottom:10px; border-bottom:1px solid #333; padding-bottom:5px;">>> HOST ACTION PROTOCOLS (PHASE 1 & 2)</div>
+        <div id="roleActionsList" class="role-actions-list">
+          </div>
+      </div>
+
+      <div class="draw-zone panel">
+        <div class="selector-wrapper">
+          <label for="deckSelector">>> SELECT IMPULSE (PHASE 3 & 4):</label>
+          <select id="deckSelector">
+            <option value="sabotage">PRIMARY: GENERAL SABOTAGE [STRONG]</option>
+            <option value="echo">SECONDARY: ALIEN ECHO [WEAK HUNT]</option>
+            <option value="hazard">TERTIARY: HAZARD TRIGGER</option>
+          </select>
+        </div>
+        
+        <button id="masterDrawBtn" class="btn-master hunt-mode">
+          <span class="btn-text">EXECUTE_WILL</span>
+        </button>
+      </div>
+
+      <div class="panel interference-panel">
+        <label>>> DIRECT INTERFERENCE PROTOCOL</label>
+        <div class="interference-desc">Target player in same sector during Action Phase.</div>
+        <button id="interferenceBtn" class="btn-glitch-link" style="margin-top:10px; border-color: var(--neon-blue); color: var(--neon-blue);">
+          ATTEMPT: DESTROY SANITY (ROLL D6)
+        </button>
+      </div>
+
+      <div class="buttons-row panel">
+        <a href="index.html" class="btn-secondary" style="text-align:center; text-decoration:none;">&lt;&lt; DISCONNECT</a>
+        <button id="shuffleAllBtn" class="btn-warning">RESET_LINK</button>
+      </div>
+    </section>
+
+    <section class="status panel">
+      <div class="stat-item">SABOTAGE: <span id="sabotageCount">--</span></div>
+      <div class="stat-item">ECHOES: <span id="echoCount">--</span></div>
+      <div class="stat-item">HAZARD: <span id="envCount">--</span></div>
+    </section>
+
+    <section class="log panel">
+      <div class="log-header">
+        <h2>>> NEURAL_LOG</h2>
+        <button id="clearLogBtn" class="btn-xs">CLEAR</button>
+      </div>
+      <div id="logOutput"></div>
+    </section>
+  </main>
+
+  <script src="possessed.js"></script>
+</body>
+</html>
