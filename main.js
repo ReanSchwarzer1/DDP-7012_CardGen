@@ -21,7 +21,6 @@ const environmentalHazardCards = [
 ];
 
 // --- DATA: HUNT CARDS (Base + Tiers) ---
-// Note: "tier" array in base cards indicates which Tiers they are valid in.
 const baseHuntCards = [
   { id: "hunt_stalking_echo", name: "Stalking Echo", tier: [1, 2, 3], noise: "Medium", effect: "Move 4 tiles toward the player that made the most recent noise. If no noise this turn, move 2 tiles toward the player with the most noise." },
   { id: "hunt_pheromone_trail", name: "Pheromone Trail", tier: [1, 2, 3], noise: "Low", effect: "Move 3 tiles toward any player you've encountered before. If none, move randomly. Use a die to choose." },
@@ -33,20 +32,19 @@ const baseHuntCards = [
   { id: "hunt_bloodlust", name: "Bloodlust", tier: [1, 2, 3], noise: "High", effect: "Move 4 tiles toward any previously captured player. If that player is now possessed, move 6 tiles towards the player nearest the possessed player." },
   { id: "hunt_territorial_snap", name: "Territorial Snap", tier: [2, 3], noise: "Medium", effect: "Move 4 tiles (roll three d6 for sector and room). After moving, search all tiles within a 3-tile radius." },
   { id: "hunt_sonic_retaliation", name: "Sonic Retaliation", tier: [1, 2, 3], noise: "Low", effect: "Move 4 tiles toward the player that used an item this turn. If none, move toward the loudest action." },
-  { id: "hunt_double threat", name: "Double Threat", tier: [1, 2, 3], noise: "Low", effect: "Spawn a temporary clone of the alien (for the next 2 turns) in the adjacent tile to the most recent noise token. Both original and clone move 2 tiles toward the same target player." },
-  { id: "hunt_zone control", name: "Zone Control", tier: [2, 3], noise: "Low", effect: "Place 2 clone markers (for the next 2 turns) in two different vents within 4 tiles of any player. Each clone moves 3 tiles toward the nearest player." },
-  { id: "hunt_kill net", name: "Kill Net", tier: [1, 2, 3], noise: "Low", effect: "Create 2 alien clones in any two vents within 10 tiles of the real alien. Real alien moves 5 tiles; each clone moves 4 tiles toward the nearest unpossessed player." },
-  { id: "hunt_item killer_i", name: "Item Killer (Pilot)", tier: [1, 2, 3], noise: "Low", effect: "Move 4 tiles towards the player that last used an item. If not, move 5 tiles towards the Pilot." },
-  { id: "hunt_item killer_ii", name: "Item Killer (Bio)", tier: [1, 2, 3], noise: "Low", effect: "Move 4 tiles towards the player that last used an item. If not, move 5 tiles towards the Biologist." },
-  { id: "hunt_item killer_iii", name: "Item Killer (Mil)", tier: [1, 2, 3], noise: "Low", effect: "Move 4 tiles towards the player that last used an item. If not, move 5 tiles towards the Military." },
-  { id: "hunt_item killer_iv", name: "Item Killer (Sci)", tier: [1, 2, 3], noise: "Low", effect: "Move 4 tiles towards the player that last used an item. If not, move 5 tiles towards the Scientist." },
-  { id: "hunt_item killer_v", name: "Item Killer (Eng)", tier: [1, 2, 3], noise: "Low", effect: "Move 4 tiles towards the player that last used an item. If not, move 5 tiles towards the Engineer." },
+  { id: "hunt_double_threat", name: "Double Threat", tier: [1, 2, 3], noise: "Low", effect: "Spawn a temporary clone of the alien (for the next 2 turns) in the adjacent tile to the most recent noise token. Both original and clone move 2 tiles toward the same target player." },
+  { id: "hunt_zone_control", name: "Zone Control", tier: [2, 3], noise: "Low", effect: "Place 2 clone markers (for the next 2 turns) in two different vents within 4 tiles of any player. Each clone moves 3 tiles toward the nearest player." },
+  { id: "hunt_kill_net", name: "Kill Net", tier: [1, 2, 3], noise: "Low", effect: "Create 2 alien clones in any two vents within 10 tiles of the real alien. Real alien moves 5 tiles; each clone moves 4 tiles toward the nearest unpossessed player." },
+  { id: "hunt_item_killer_i", name: "Item Killer (Pilot)", tier: [1, 2, 3], noise: "Low", effect: "Move 4 tiles towards the player that last used an item. If not, move 5 tiles towards the Pilot." },
+  { id: "hunt_item_killer_ii", name: "Item Killer (Bio)", tier: [1, 2, 3], noise: "Low", effect: "Move 4 tiles towards the player that last used an item. If not, move 5 tiles towards the Biologist." },
+  { id: "hunt_item_killer_iii", name: "Item Killer (Mil)", tier: [1, 2, 3], noise: "Low", effect: "Move 4 tiles towards the player that last used an item. If not, move 5 tiles towards the Military." },
+  { id: "hunt_item_killer_iv", name: "Item Killer (Sci)", tier: [1, 2, 3], noise: "Low", effect: "Move 4 tiles towards the player that last used an item. If not, move 5 tiles towards the Scientist." },
+  { id: "hunt_item_killer_v", name: "Item Killer (Eng)", tier: [1, 2, 3], noise: "Low", effect: "Move 4 tiles towards the player that last used an item. If not, move 5 tiles towards the Engineer." },
   { id: "hunt_possession_protocol_ii", name: "Possession Protocol II", tier: [1, 2, 3], noise: "High", effect: "Move 5 tiles toward an unpossessed player nearest to a possessed player." },
-  { id: "hunt_vents are fun", name: "Vents are Fun", tier: [1, 2, 3], noise: "Low", effect: "Teleport to the Vent Junction nearest to a Safe Room. Decide the nearest tile with a dice roll." },
-  { id: "hunt_vents are fun_ii", name: "Vents are Fun 2", tier: [2, 3], noise: "Low", effect: "Teleport to the Vent Junction nearest to the Engineer and move 3 tiles towards them." }
+  { id: "hunt_vents_are_fun", name: "Vents are Fun", tier: [1, 2, 3], noise: "Low", effect: "Teleport to the Vent Junction nearest to a Safe Room. Decide the nearest tile with a dice roll." },
+  { id: "hunt_vents_are_fun_ii", name: "Vents are Fun 2", tier: [2, 3], noise: "Low", effect: "Teleport to the Vent Junction nearest to the Engineer and move 3 tiles towards them." }
 ];
 
-// Tier Specific Additions (These get added to the base cards)
 const tier1HuntAdditions = [
   { id: "hunt_methodical_sweep", name: "Methodical Sweep", tier: [1], noise: "Medium", effect: "Move 3 tiles towards the nearest player." },
   { id: "hunt_cautious_approach", name: "Cautious Approach", tier: [1], noise: "Medium", effect: "Move 6 tiles toward most recent noise. If no noise, move 2 tiles toward nearest Safe Room." },
@@ -93,25 +91,18 @@ let evolveDeck = [];
 let escalationDeck = [];
 let environmentalDeck = [];
 
-// Determine Tier based on turn
 function getHuntTier(turn) {
   if (turn <= 5) return 1;
   if (turn <= 10) return 2;
   return 3;
 }
 
-// Build deck based on current Tier
 function buildHuntDeckForTier(tier) {
-  // 1. Get Base cards valid for this tier
   const base = baseHuntCards.filter(c => c.tier.includes(tier));
-  
-  // 2. Get Tier specific additions
   let additions = [];
   if (tier === 1) additions = tier1HuntAdditions;
   else if (tier === 2) additions = tier2HuntAdditions;
   else if (tier === 3) additions = tier3HuntAdditions;
-
-  // 3. Merge and Shuffle (Spread operator ensures we don't mutate originals)
   return shuffle([...base, ...additions]);
 }
 
@@ -146,7 +137,6 @@ function updateStatusUI() {
   const tier = getHuntTier(currentTurn);
   turnDisplay.textContent = String(currentTurn).padStart(2, '0');
   tierDisplay.textContent = String(tier);
-  
   huntCountSpan.textContent = String(huntDeck.length).padStart(2, '0');
   evolveCountSpan.textContent = String(evolveDeck.length).padStart(2, '0');
   escalationCountSpan.textContent = String(escalationDeck.length).padStart(2, '0');
@@ -172,12 +162,8 @@ function logDraw(type, card, extra = "") {
   else if (card.persists) meta = `DURATION: ${card.persists}`;
   else if (card.trigger) meta = `COND: ${card.trigger}`;
 
-  // For System messages
   if(type === "System") {
-      container.innerHTML = `
-        <div class="log-entry-title">>> ${card.name}</div>
-        <div class="log-entry-effect">${card.effect}</div>
-      `;
+      container.innerHTML = `<div class="log-entry-title">>> ${card.name}</div><div class="log-entry-effect">${card.effect}</div>`;
   } else {
       container.innerHTML = `
         <div class="log-entry-title">${type.toUpperCase()}: ${card.name.toUpperCase()}</div>
@@ -185,7 +171,6 @@ function logDraw(type, card, extra = "") {
         <div class="log-entry-effect">${extra ? '<span class="alert-text">' + extra + '</span><br>' : ''}${card.effect}</div>
       `;
   }
-  
   logOutput.prepend(container);
 }
 
@@ -202,45 +187,51 @@ function drawEnvironmental(isChain = false) {
 }
 
 function drawHunt() {
-  // 1. Check Deck Health
   if (huntDeck.length === 0) {
      huntDeck = buildHuntDeckForTier(getHuntTier(currentTurn));
-     logDraw("System", {name: "CYCLE_HUNT", effect: "Hunt deck depleted. Reshuffling for current Tier..."});
+     logDraw("System", {name: "CYCLE_HUNT", effect: "Hunt deck depleted. Reshuffling for current Tier."});
   }
   
-  // 2. Draw
   const card = huntDeck.shift();
   updateStatusUI();
   logDraw("Hunt", card);
 
-  // 3. Logic Check: Environmental Hazard triggers within the text
+  // LOGIC FIX: Handle 1 or 2 Environmental Hazards
   const effectText = card.effect.toLowerCase();
-  if (effectText.includes("environmental hazard")) {
-    setTimeout(() => drawEnvironmental(true), 300);
+  if (effectText.includes("resolve 2 environmental hazard")) {
+     setTimeout(() => drawEnvironmental(true), 400);
+     setTimeout(() => drawEnvironmental(true), 1200);
+  } else if (effectText.includes("environmental hazard")) {
+     setTimeout(() => drawEnvironmental(true), 400);
   }
 
-  // 4. Logic Check: Swarm Instinct (Multi-draw)
+  // LOGIC FIX: Staggered Swarm Instinct
   if (card.id.includes("swarm_instinct")) {
     let extraDraws = 1; 
     if(card.id.includes("omega")) extraDraws = 3;
 
     setTimeout(() => {
         for (let i = 0; i < extraDraws; i++) {
-            // Safety Check: If deck runs out MID-SWARM, refill immediately
-            if (huntDeck.length === 0) {
-                huntDeck = buildHuntDeckForTier(getHuntTier(currentTurn));
-                logDraw("System", {name: "CYCLE_HUNT", effect: "Hunt deck depleted during Swarm. Reshuffling..."});
-            }
-            
-            const extraCard = huntDeck.shift();
-            logDraw("Hunt", extraCard, `>> SWARM ACTIVATION [${i+1}/${extraDraws}]`);
-            
-            // Check secondary hazard triggers on the swarmed cards
-            if (extraCard.effect.toLowerCase().includes("environmental hazard")) {
-                setTimeout(() => drawEnvironmental(true), 300);
-            }
+            // Stagger each draw by 800ms so they don't appear instantly
+            setTimeout(() => {
+                if (huntDeck.length === 0) {
+                    huntDeck = buildHuntDeckForTier(getHuntTier(currentTurn));
+                    logDraw("System", {name: "CYCLE_HUNT", effect: "Hunt deck depleted during Swarm. Reshuffling..."});
+                }
+                const extraCard = huntDeck.shift();
+                logDraw("Hunt", extraCard, `>> SWARM ACTIVATION [${i+1}/${extraDraws}]`);
+                
+                // Recursion check for hazards in swarm cards
+                const extraEffect = extraCard.effect.toLowerCase();
+                if (extraEffect.includes("resolve 2 environmental hazard")) {
+                     setTimeout(() => drawEnvironmental(true), 400);
+                     setTimeout(() => drawEnvironmental(true), 1200);
+                } else if (extraEffect.includes("environmental hazard")) {
+                     setTimeout(() => drawEnvironmental(true), 400);
+                }
+                updateStatusUI();
+            }, i * 800);
         }
-        updateStatusUI();
     }, 600);
   }
 }
@@ -248,7 +239,7 @@ function drawHunt() {
 function drawEvolve() {
   if (evolveDeck.length === 0) {
     evolveDeck = shuffle([...evolveCards]);
-    logDraw("System", {name: "CYCLE_EVOLVE", effect: "Evolve deck depleted. Reshuffling..."});
+    logDraw("System", {name: "CYCLE_EVOLVE", effect: "Evolve deck recycled."});
   }
   const card = evolveDeck.shift();
   updateStatusUI();
@@ -258,7 +249,7 @@ function drawEvolve() {
 function drawEscalation() {
   if (escalationDeck.length === 0) {
     escalationDeck = shuffle([...escalationCards]);
-    logDraw("System", {name: "CYCLE_EVENT", effect: "Escalation deck depleted. Reshuffling..."});
+    logDraw("System", {name: "CYCLE_EVENT", effect: "Escalation deck recycled."});
   }
   const card = escalationDeck.shift();
   updateStatusUI();
@@ -269,25 +260,21 @@ function drawEscalation() {
   }
 }
 
-// --- CONTROLS & LISTENERS ---
+// --- CONTROLS ---
 const deckSelector = document.getElementById("deckSelector");
 const masterBtn = document.getElementById("masterDrawBtn");
 
-// Button Styling based on selection
 deckSelector.addEventListener("change", () => {
   const type = deckSelector.value;
-  masterBtn.className = "btn-master"; // Reset
+  masterBtn.className = "btn-master"; 
   if(type === "hunt") masterBtn.classList.add("hunt-mode");
   if(type === "evolve") masterBtn.classList.add("evolve-mode");
   if(type === "escalation") masterBtn.classList.add("escalate-mode");
   if(type === "hazard") masterBtn.classList.add("env-mode");
 });
 
-// Master Draw Button
 masterBtn.addEventListener("click", () => {
   const type = deckSelector.value;
-  
-  // Animation
   masterBtn.style.transform = "scale(0.98)";
   setTimeout(() => masterBtn.style.transform = "scale(1)", 100);
 
@@ -297,35 +284,30 @@ masterBtn.addEventListener("click", () => {
   else if (type === "hazard") drawEnvironmental(false);
 });
 
-// Next Turn
 document.getElementById("nextTurnBtn").addEventListener("click", () => {
   currentTurn++;
   turnInput.value = currentTurn;
-  
   const oldTier = parseInt(tierDisplay.textContent);
   const newTier = getHuntTier(currentTurn);
-  
   updateStatusUI();
   
   if (newTier !== oldTier) {
-     logDraw("System", {name: "THREAT_INCREASE", effect: `WARNING: TIER ${newTier} PROTOCOLS ACTIVE. DECK UPDATED.`});
+     logDraw("System", {name: "TIER UPGRADE", effect: `Danger Level Increased to Tier ${newTier}. Hunt Deck updated.`});
      huntDeck = buildHuntDeckForTier(newTier);
      updateStatusUI();
   }
 });
 
-// Set Turn Manual
 document.getElementById("setTurnBtn").addEventListener("click", () => {
     const val = parseInt(turnInput.value, 10);
     if(val > 0) {
         currentTurn = val;
         huntDeck = buildHuntDeckForTier(getHuntTier(currentTurn));
         updateStatusUI();
-        logDraw("System", {name: "TURN_OVERRIDE", effect: `Jumped to Turn ${currentTurn}. Deck verified for Tier ${getHuntTier(currentTurn)}.`});
+        logDraw("System", {name: "TURN_OVERRIDE", effect: `Turn set to ${currentTurn}. Deck verified for Tier ${getHuntTier(currentTurn)}.`});
     }
 });
 
-// Reset
 document.getElementById("shuffleAllBtn").addEventListener("click", () => {
     if(confirm("CONFIRM SYSTEM PURGE? ALL DATA WILL BE RESET.")) {
         currentTurn = 1;
@@ -339,5 +321,4 @@ document.getElementById("clearLogBtn").addEventListener("click", () => {
     document.getElementById("logOutput").innerHTML = "";
 });
 
-// Initial Load
 resetAllDecks();

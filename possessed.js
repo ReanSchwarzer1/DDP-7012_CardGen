@@ -22,7 +22,7 @@ const generalSabotageCards = [
 ];
 
 // --- DATA: PERMANENT HOST ACTIONS (PHASE 1 & 2) ---
-// Note: "Sensory Overload" (Reveal) is added programmatically to all roles below.
+// Note: "Sensory Overload" (Reveal) is added programmatically to all roles.
 const roleActionsData = {
   military: [
     { name: "Booby Trap", desc: "Place a hidden token. First player to enter is STUNNED (loses remaining actions)." },
@@ -116,7 +116,7 @@ function initPossessed(role) {
   allActions.forEach(action => {
       const div = document.createElement("div");
       div.className = "action-card";
-      // Highlight the universal action slightly differently
+      // Highlight the universal action
       if(action.name.includes("UNIVERSAL")) {
          div.style.borderLeftColor = "var(--neon-blue)";
          div.style.background = "rgba(0, 243, 255, 0.05)";
@@ -199,7 +199,6 @@ function attemptInterference() {
   if (roll >= 4) {
     isSuccess = true;
     resultType = "SUCCESS";
-    // UPDATED EFFECT: Energy OR Resources
     resultText = `MENTAL FRACTURE.<br>Target loses <strong>2 ENERGY</strong> <span style="color:#fff">--OR--</span> <strong>1 ITEM/RESOURCE</strong>.<br>(Also -2 to next d6 outcomes).`;
   } else {
     isSuccess = false;
