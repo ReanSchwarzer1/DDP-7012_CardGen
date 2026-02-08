@@ -22,9 +22,9 @@
 
     <section class="controls">
       <div class="turn-control panel">
-        <label>MISSION_TURN:</label>
+        <label>MISSION_TURN (MAX 12):</label>
         <div class="input-group">
-          <input type="number" id="turnInput" value="1" min="1" max="30" />
+          <input type="number" id="turnInput" value="1" min="1" max="12" />
           <button id="setTurnBtn" class="btn-small">SET</button>
         </div>
       </div>
@@ -80,97 +80,151 @@
     <section id="handbookSection">
       <h2 style="text-align:center; color: var(--neon-amber); font-family: var(--font-display);">// TACTICAL DATABASE //</h2>
       
-      <div class="section-title">>> OPERATIONAL CYCLE</div>
-      <div class="phase-grid">
-        <div class="phase-card">
-          <h3><span>01</span> BRIEFING</h3>
+      <div class="section-title">>> PHASE 0: GAME START (AUCTION)</div>
+      <div class="phase-grid" style="margin-bottom: 2rem;">
+        <div class="phase-card" style="width:100%">
+          <h3>ENERGY BIDDING</h3>
           <div class="phase-detail">
-            <strong>1. Location Check:</strong> Announce Room/Tile.<br>
-            <strong>2. Action Selection:</strong> Place Card Face-Down.<br>
-            <em style="color:#666;">Locked. No take-backs.</em>
-          </div>
-        </div>
-        <div class="phase-card">
-          <h3><span>02</span> EXECUTION</h3>
-          <div class="phase-detail">
-            <strong>HUMAN:</strong> Resolve Action (Move, Search, Door, Hide).
-            <div class="phase-sub"><strong class="highlight-red">POSSESSED:</strong> Twisted Action / Interference.</div>
-          </div>
-        </div>
-        <div class="phase-card">
-          <h3><span>03</span> THREAT</h3>
-          <div class="phase-detail">
-            <strong>Draw Cards:</strong> 1 Base + 1 per Possessed + Alarm.<br>
-            <strong>Resolve:</strong> Hunt, Swarm, Hazards.
-          </div>
-        </div>
-        <div class="phase-card">
-          <h3><span>04</span> RESOLUTION</h3>
-          <div class="phase-detail">
-            <strong>Alien Moves:</strong> X tiles via Hunt Cards.<br>
-            <em>Priority: Noise > Sight > Energy > Random</em>
-          </div>
-        </div>
-        <div class="phase-card">
-          <h3><span>05</span> ENCOUNTER</h3>
-          <div class="phase-detail">
-            <strong>1st:</strong> <span class="highlight-green">ESCAPE</span> (Auto-Hide, Alarm triggers).<br>
-            <strong>2nd:</strong> <span class="highlight-red">POSSESSION</span> (Join Hive Mind).
-          </div>
-        </div>
-        <div class="phase-card">
-          <h3><span>06</span> REACTION</h3>
-          <div class="phase-detail">
-            Triggers if Alien <strong>< 3 Tiles</strong> away.<br>
-            <strong>Actions:</strong> Yell, Trap, Guard (d6: 3+).
+            <p>Each player starts with 30 energy (represented in the player boards). Players blind bid Energy to determine turn order (cannot exceed 5 bid energy by each player).</p>
+            <ul>
+                <li>Highest bid = chooses their position first (1st, 2nd, 3rd, or 4th)</li>
+                <li>Ties = simultaneous reveal of a d6 roll (highest wins)</li>
+            </ul>
+            <strong>Compensation:</strong>
+            <ul>
+                <li><strong>Position 1:</strong> No bonus</li>
+                <li><strong>Position 2:</strong> +1 resource for any resource they choose + 1 energy</li>
+                <li><strong>Position 3:</strong> +2 Energy + 2 resource for any resource they choose</li>
+                <li><strong>Position 4:</strong> +2 Energy + 1 Scavenge Card + 2 resource for any resource they choose</li>
+            </ul>
+            <p><strong>Action Selection:</strong> All players, based on the turn order, roll two dice (one die the first time to decide between sectors A-F) and two dice together to decide the room number. (e.g., C + 8 = C8).</p>
           </div>
         </div>
       </div>
 
-      <div class="section-title">>> CREW MANIFEST</div>
+      <div class="section-title">>> OPERATIONAL CYCLE (PHASES 1-6)</div>
+      <div class="phase-grid">
+        <div class="phase-card">
+          <h3><span>01</span> BRIEFING (PLANNING)</h3>
+          <div class="phase-detail">
+            <strong>Location Check:</strong> All players must announce their current room or tile location.<br>
+            <strong>Action Selection:</strong> All players (Human and Possessed) must also announce their intended action.<br>
+            <em style="color:#666;">Note: Once placed, actions are locked. No take-backs.</em>
+          </div>
+        </div>
+        <div class="phase-card">
+          <h3><span>02</span> PLAYER ACTIONS</h3>
+          <div class="phase-detail">
+            <strong>HUMAN PLAYERS:</strong>
+            <ul>
+                <li><strong>Move:</strong> Move 2 tiles (Free). Additional tiles cost 1 Energy each.</li>
+                <li><strong>Search Room:</strong> Draw 1 Scavenge Card. Costs 2 Energy. (Triggers Noise).</li>
+                <li><strong>Open Door:</strong> Costs 1-2 Energy.</li>
+                <li><strong>Hide:</strong> Become Invisible. Locked in room until Alien passes. (Next turn: No action).</li>
+                <li><strong>Yell:</strong> Force Alien toward your specific tile. Costs 2 Energy.</li>
+                <li><strong>Role Ability:</strong> Use a specific Role Ability.</li>
+                <li><strong>Use Item:</strong> Deploy a Scavenge item.</li>
+            </ul>
+            <div class="phase-sub">
+                <strong class="highlight-red">POSSESSED PLAYERS:</strong><br>
+                Use Command Console (Sabotage Deck).<br>
+                <strong>Twisted Role Action:</strong> Corrupted version of original role.<br>
+                <strong>Sensory Overload:</strong> Force Hidden player in room/adjacent/2 tiles to reveal.<br>
+                <strong>Direct Interference:</strong> "Destroy Sanity" roll if in same room.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card">
+          <h3><span>03</span> THE THREAT</h3>
+          <div class="phase-detail">
+            <strong>Tier Check:</strong>
+            <ul>
+                <li><strong>Tier 1 (Turns 1–3):</strong> Standard + Tier 1 Hunt + Hazard.</li>
+                <li><strong>Tier 2 (Turns 4–6):</strong> Tier 2 Hunt + Hazard + Evolve. (Remove Tier 1 Hunt).</li>
+                <li><strong>Tier 3 (Turn 7+):</strong> Tier 3 Hunt added.</li>
+            </ul>
+            <strong>Draw Logic:</strong> 1 Base + 1 per Possessed + 1 if Alarm Active + 1 per Clone.<br>
+            <em>Late Game: +1 card for every 2 turns after Turn 7.</em>
+          </div>
+        </div>
+        <div class="phase-card">
+          <h3><span>04</span> ALIEN RESOLUTION</h3>
+          <div class="phase-detail">
+            The Alien executes the instructions from Phase 3.<br>
+            <strong>Action:</strong> Alien moves and acts according to the resolved cards (toward Noise or specific Rooms).
+          </div>
+        </div>
+        <div class="phase-card">
+          <h3><span>05</span> ENCOUNTERS</h3>
+          <div class="phase-detail">
+            <strong>Step A: The Encounter Roll (Escape):</strong> Player flees to an adjacent tile and is Auto-Hidden for 1 turn. (Always happens in the first capture).<br><br>
+            <strong>Step B: Capture Consequences:</strong>
+            <ul>
+                <li><strong>First Capture:</strong> Player released, Alarm Triggers. All players Visible (No Hiding 2 turns). Energy Drain +1. Alien Deck +1 card permanently.</li>
+                <li><strong>Second Capture (Possession):</strong> Player becomes Possessed. Receives Sabotage Deck. Alien Deck +1 card draw per turn. Alarm triggers.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="phase-card">
+          <h3><span>06</span> PLAYER RESPONSE</h3>
+          <div class="phase-detail">
+            Triggers if Alien within 3 tiles (or Possessed within 2 tiles).
+            <ul>
+                <li><strong>Yell (-1 Energy):</strong> Distract Alien to move towards player.</li>
+                <li><strong>Guard:</strong> Adjacent player rolls d6 (3-6 Success) to take Capture event.</li>
+                <li><strong>Flash Retreat (-8 Energy):</strong> Move 2 tiles ANY direction (Must have 1E remaining).</li>
+                <li><strong>Desperate Strike (-2 Energy + 1 Item):</strong> Roll d6 (4-6 Push Back, 1-3 Attack, 1 Auto-Possession).</li>
+                <li><strong>Barricade (-3 Energy + 3 Resource):</strong> Seal room entrance for 2 turns.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">>> CREW MANIFEST (HUMAN)</div>
       <div class="role-grid">
-        <div class="role-card role-military">
-          <div class="role-header"><div class="role-name">MILITARY</div><div class="role-uses">3 USES</div></div>
-          <div class="role-body">
-            <div class="ability"><div class="ability-name">DEPLOY TRAP</div><div class="ability-desc">Place hidden trap. Alien entering is STUNNED 1 turn.</div></div>
-            <div class="ability"><div class="ability-name">TACTICAL RALLY</div><div class="ability-desc">Grant adjacent ally +1 Action immediately.</div></div>
-          </div>
-        </div>
-        <div class="role-card role-biologist">
-          <div class="role-header"><div class="role-name">BIOLOGIST</div><div class="role-uses">2 USES</div></div>
-          <div class="role-body">
-            <div class="ability"><div class="ability-name">INCAPACITATE</div><div class="ability-desc">If in same room: Freeze Alien 1 turn.</div></div>
-            <div class="ability"><div class="ability-name">EXORCISM</div><div class="ability-desc">Reset rooted Possessed player to Human.</div></div>
-          </div>
-        </div>
         <div class="role-card role-engineer">
-          <div class="role-header"><div class="role-name">ENGINEER</div><div class="role-uses">3 USES</div></div>
+          <div class="role-header"><div class="role-name">ENGINEER</div><div class="role-uses">4 USES</div></div>
           <div class="role-body">
-            <div class="ability"><div class="ability-name">AUXILIARY POWER</div><div class="ability-desc">Restore +3 Energy to Station.</div></div>
-            <div class="ability"><div class="ability-name">OVERRIDE</div><div class="ability-desc">Open any Door for FREE (0 Energy).</div></div>
+            <div class="ability"><div class="ability-name">ABILITY 1</div><div class="ability-desc">Can restore +3 energy for themselves or another player.</div></div>
+            <div class="ability"><div class="ability-name">ABILITY 2</div><div class="ability-desc">Can Override door (free opening).</div></div>
           </div>
         </div>
         <div class="role-card role-scientist">
-          <div class="role-header"><div class="role-name">SCIENTIST</div><div class="role-uses">2 USES</div></div>
+          <div class="role-header"><div class="role-name">SCIENTIST</div><div class="role-uses">3 USES</div></div>
           <div class="role-body">
-            <div class="ability"><div class="ability-name">PRECOGNITION</div><div class="ability-desc">Peek at top card of Alien Deck.</div></div>
-            <div class="ability"><div class="ability-name">RAPID RESEARCH</div><div class="ability-desc">Search: Draw 2 Cards, Keep both.</div></div>
+            <div class="ability"><div class="ability-name">ABILITY 1</div><div class="ability-desc">Can peek at the alien deck (top 2 cards) (-1 energy).</div></div>
+            <div class="ability"><div class="ability-name">ABILITY 2</div><div class="ability-desc">Can draw 2 cards instead of 1 during scavenging (-1 energy).</div></div>
           </div>
         </div>
         <div class="role-card role-pilot">
-          <div class="role-header"><div class="role-name">PILOT</div><div class="role-uses">2 USES</div></div>
+          <div class="role-header"><div class="role-name">PILOT</div><div class="role-uses">3 USES</div></div>
           <div class="role-body">
-            <div class="ability"><div class="ability-name">SPRINT</div><div class="ability-desc">Move 2 Tiles for 1 Move Action (Free).</div></div>
-            <div class="ability"><div class="ability-name">HOTWIRE</div><div class="ability-desc">Reduce Escape Pod cost by 3 Energy.</div></div>
+            <div class="ability"><div class="ability-name">ABILITY 1</div><div class="ability-desc">Can move 4 tiles (free).</div></div>
+            <div class="ability"><div class="ability-name">ABILITY 2</div><div class="ability-desc">To use the Escape pod (-3 energy requirement).</div></div>
           </div>
         </div>
         <div class="role-card role-medic">
-          <div class="role-header"><div class="role-name">MEDICAL</div><div class="role-uses">1 USE</div></div>
+          <div class="role-header"><div class="role-name">MEDICAL OFFICER</div><div class="role-uses">2 USES</div></div>
           <div class="role-body">
-            <div class="ability"><div class="ability-name">STABILIZE</div><div class="ability-desc">Reset Capture Counter (Prevent Possession).</div></div>
-            <div class="ability"><div class="ability-name">ADRENALINE</div><div class="ability-desc">Reduce Action Cost by -1 Energy.</div></div>
+            <div class="ability"><div class="ability-name">ABILITY 1</div><div class="ability-desc">Can Reset capture counter (-2 energy).</div></div>
+            <div class="ability"><div class="ability-name">ABILITY 2</div><div class="ability-desc">Reduce action costs for any action for 3 energy.</div></div>
           </div>
         </div>
+      </div>
+      
+      <div class="section-title">>> WIN CONDITIONS</div>
+      <div class="phase-grid" style="grid-template-columns: 1fr;">
+          <div class="phase-card">
+              <div class="phase-detail">
+                  <ul>
+                      <li>If <strong>2+ players</strong> are not possessed and reach the escape pods by turn 12 or earlier, they win.</li>
+                      <li>If only <strong>1 player</strong> reaches the escape pod (not possessed), it is a win condition only for the possessed players.</li>
+                      <li>If <strong>more than 2 players</strong> reach the escape pods by turn 12, they escape the space station before it crashes into the nearest star.</li>
+                      <li>If the number of <strong>possessed players is 3 or more</strong>, the possessed players win.</li>
+                      <li>If <strong>all players turn possessed</strong> (especially before turn 12), the possessed players win. Turn counter automatically counts to turn 12, and the alien absorbs them.</li>
+                  </ul>
+              </div>
+          </div>
       </div>
     </section>
 

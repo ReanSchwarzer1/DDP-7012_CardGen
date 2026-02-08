@@ -9,7 +9,7 @@ function shuffle(array) {
   return array;
 }
 
-// --- DATA: GENERAL SABOTAGE (BUFFED) ---
+// --- DATA: SABOTAGE DECK ---
 const generalSabotageCards = [
   { name: "Telepathy Traitor", effect: "Move the Alien +4 tiles towards a target player of your choice." },
   { name: "Critical Failure", effect: "Choose a player. Their next Item usage fails and the Item is discarded." },
@@ -21,38 +21,23 @@ const generalSabotageCards = [
   { name: "Dark Whisper", effect: "Teleport the Alien to any Vent Junction on the map." }
 ];
 
-// --- DATA: PERMANENT HOST ACTIONS (PHASE 1 & 2) ---
-// Note: "Sensory Overload" (Reveal) is added programmatically to all roles.
+// --- DATA: PERMANENT HOST ACTIONS (PHASE 2) ---
 const roleActionsData = {
-  military: [
-    { name: "Booby Trap", desc: "Place a hidden token. First player to enter is STUNNED (loses remaining actions)." },
-    { name: "Weapon Jam", desc: "Reaction: Play when a player attacks/stuns. The action FAILS and ammo is wasted." },
-    { name: "False Rally", desc: "Action: Force a player within 3 tiles to move 2 tiles towards you immediately." }
-  ],
-  biologist: [
-    { name: "Contaminate Cure", desc: "Action: No players can use Medkits or Surgery this turn." },
-    { name: "Pheromone Boost", desc: "Action: The Alien's movement is DOUBLED this turn." },
-    { name: "Failed Exorcism", desc: "Reaction: If scanned/healed, the healer loses 2 Energy and is pushed back 1 tile." }
-  ],
   engineer: [
-    { name: "Power Down", desc: "Action: Drain 3 Energy from Station Reserves. All players get -1 Movement." },
-    { name: "Hard Lock", desc: "Action: Seal a door permanently. Requires Explosives to open." },
-    { name: "Vent Override", desc: "Action: Open all vents in your sector. Alien moves freely between them." }
+    { name: "Hard Lock", desc: "Seal a door permanently. Requires -5 Energy or Explosives (item) to open." },
+    { name: "Power Down", desc: "Drain 3 Energy from any player's Reserves. All players get -1 Movement for the next 2 turns." }
   ],
   scientist: [
-    { name: "Data Corruption", desc: "Action: Shuffle Alien Deck. No 'Peeking' allowed for 2 turns." },
-    { name: "False Reading", desc: "Action: Draw and resolve 2 Alien Echo cards immediately." },
-    { name: "Experimental Lure", desc: "Action: Force all players in a specific room to make a Noise Check." }
+    { name: "False Reading", desc: "Draw and resolve 2 Alien Deck cards immediately." },
+    { name: "Experimental Lure", desc: "Force any player in a specific room to possess 5 noise." }
   ],
   pilot: [
-    { name: "Navigational Error", desc: "Action: Forcefully move another player 2 tiles in YOUR chosen direction." },
-    { name: "Pod Lockdown", desc: "Permanent: Increase Escape Pod energy cost by +3." },
-    { name: "Vent Venting", desc: "Action: Fill a corridor with gas. Impassable for 1 turn." }
+    { name: "Navigational Error", desc: "Forcefully move another player 4 tiles in YOUR chosen direction or room." },
+    { name: "Vent Venting", desc: "Fill any two corridors with gas. Impassable for 1 turn." }
   ],
   medic: [
-    { name: "Poison Inject", desc: "Reaction: When a player heals, give them 1 Infection Token instead." },
-    { name: "Sedative Haze", desc: "Action: All players in your room lose 1 Action Point next turn." },
-    { name: "Accelerate Infection", desc: "Action: Advance the Infection Counter on a target player by 1 stage." }
+    { name: "Accelerate Infection", desc: "Advance the Infection Counter on a target player by 1 stage." },
+    { name: "False Reading Omega", desc: "Draw and resolve 3 Alien Deck cards immediately." }
   ]
 };
 
@@ -88,6 +73,7 @@ const hostDisplay = document.getElementById("hostDisplay");
 const actionsPanel = document.getElementById("actionsPanel");
 const roleActionsList = document.getElementById("roleActionsList");
 
+// NOTE: Ensure HTML only contains buttons for: engineer, scientist, pilot, medic
 document.querySelectorAll(".btn-role").forEach(btn => {
   btn.addEventListener("click", (e) => {
     const role = e.target.getAttribute("data-role");
@@ -103,7 +89,7 @@ function initPossessed(role) {
   // 1. Define the Universal Action (Available to everyone)
   const universalAction = { 
     name: "SENSORY OVERLOAD (UNIVERSAL)", 
-    desc: "Action: Force a HIDDEN player in your room (or adjacent) to REVEAL themselves immediately." 
+    desc: "Force a HIDDEN player in your room/adjacent rooms/or 2 tiles away to reveal themselves. (Die rolls: Same room=Auto, Adj=3+, 2 tiles=4+)." 
   };
 
   // 2. Get specific role actions
@@ -196,21 +182,22 @@ function attemptInterference() {
   let resultText = "";
   let isSuccess = false;
 
+  // RULE: 4-6 Success, 1-3 Failure
   if (roll >= 4) {
     isSuccess = true;
-    resultType = "SUCCESS";
-    resultText = `MENTAL FRACTURE.<br>Target loses <strong>2 ENERGY</strong> <span style="color:#fff">--OR--</span> <strong>1 ITEM/RESOURCE</strong>.<br>(Also -2 to next d6 outcomes).`;
+    resultType = "SUCCESS (DESTROY SANITY)";
+    resultText = `Target loses <strong>2 Energy</strong> OR <strong>1 Item</strong>.`;
   } else {
     isSuccess = false;
     resultType = "FAILURE";
-    resultText = `Psychic Backlash! You are STUNNED in current tile for 2 turns.`;
+    resultText = `The possessed player is <strong>Stunned</strong> for 1 turn.`;
   }
 
   const container = document.createElement("div");
   container.className = `log-entry ${isSuccess ? 'type-hunt' : 'type-hazard'}`;
   
   container.innerHTML = `
-    <div class="log-entry-title">>> INTERFERENCE: ROLL [${roll}]</div>
+    <div class="log-entry-title">>> DESTROY SANITY: ROLL [${roll}]</div>
     <div class="log-entry-meta">RESULT: ${resultType}</div>
     <div class="log-entry-effect"><span class="alert-text">${resultText}</span></div>
   `;
@@ -278,7 +265,7 @@ masterBtn.addEventListener("click", () => {
 });
 
 interferenceBtn.addEventListener("click", () => {
-  if(confirm("Attempt Direct Interference? (Requires target in same/adjacent zone)")) {
+  if(confirm("Attempt Direct Interference? (Target must be in the same room)")) {
     attemptInterference();
   }
 });

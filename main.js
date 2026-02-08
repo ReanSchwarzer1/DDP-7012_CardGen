@@ -36,8 +36,6 @@ const baseHuntCards = [
   { id: "hunt_zone_control", name: "Zone Control", tier: [2, 3], noise: "Low", effect: "Place 2 clone markers (for the next 2 turns) in two different vents within 4 tiles of any player. Each clone moves 3 tiles toward the nearest player." },
   { id: "hunt_kill_net", name: "Kill Net", tier: [1, 2, 3], noise: "Low", effect: "Create 2 alien clones in any two vents within 10 tiles of the real alien. Real alien moves 5 tiles; each clone moves 4 tiles toward the nearest unpossessed player." },
   { id: "hunt_item_killer_i", name: "Item Killer (Pilot)", tier: [1, 2, 3], noise: "Low", effect: "Move 4 tiles towards the player that last used an item. If not, move 5 tiles towards the Pilot." },
-  { id: "hunt_item_killer_ii", name: "Item Killer (Bio)", tier: [1, 2, 3], noise: "Low", effect: "Move 4 tiles towards the player that last used an item. If not, move 5 tiles towards the Biologist." },
-  { id: "hunt_item_killer_iii", name: "Item Killer (Mil)", tier: [1, 2, 3], noise: "Low", effect: "Move 4 tiles towards the player that last used an item. If not, move 5 tiles towards the Military." },
   { id: "hunt_item_killer_iv", name: "Item Killer (Sci)", tier: [1, 2, 3], noise: "Low", effect: "Move 4 tiles towards the player that last used an item. If not, move 5 tiles towards the Scientist." },
   { id: "hunt_item_killer_v", name: "Item Killer (Eng)", tier: [1, 2, 3], noise: "Low", effect: "Move 4 tiles towards the player that last used an item. If not, move 5 tiles towards the Engineer." },
   { id: "hunt_possession_protocol_ii", name: "Possession Protocol II", tier: [1, 2, 3], noise: "High", effect: "Move 5 tiles toward an unpossessed player nearest to a possessed player." },
@@ -91,19 +89,30 @@ let evolveDeck = [];
 let escalationDeck = [];
 let environmentalDeck = [];
 
+// RULES UPDATE: Tier 1 (1-3), Tier 2 (4-6), Tier 3 (7+)
 function getHuntTier(turn) {
-  if (turn <= 5) return 1;
-  if (turn <= 10) return 2;
+  if (turn <= 3) return 1;
+  if (turn <= 6) return 2;
   return 3;
 }
 
 function buildHuntDeckForTier(tier) {
-  const base = baseHuntCards.filter(c => c.tier.includes(tier));
-  let additions = [];
-  if (tier === 1) additions = tier1HuntAdditions;
-  else if (tier === 2) additions = tier2HuntAdditions;
-  else if (tier === 3) additions = tier3HuntAdditions;
-  return shuffle([...base, ...additions]);
+  let deck = [];
+  
+  if (tier === 1) {
+    const base = baseHuntCards.filter(c => c.tier.includes(1));
+    deck = [...base, ...tier1HuntAdditions];
+  } else if (tier === 2) {
+    // RULES: Remove Tier 1 exclusive cards, Add Tier 2
+    const base = baseHuntCards.filter(c => c.tier.includes(2));
+    deck = [...base, ...tier2HuntAdditions];
+  } else {
+    // Tier 3
+    const base = baseHuntCards.filter(c => c.tier.includes(3));
+    deck = [...base, ...tier2HuntAdditions, ...tier3HuntAdditions];
+  }
+
+  return shuffle(deck);
 }
 
 function resetAllDecks() {
@@ -118,7 +127,7 @@ function resetAllDecks() {
   entry.className = "log-entry system-msg";
   entry.innerHTML = `
     <div class="log-entry-title">>> SYSTEM_RESET</div>
-    <div class="log-entry-effect">ALL DECKS SHUFFLED. TIER ${tier} LOADED.</div>
+    <div class="log-entry-effect">ALL DECKS SHUFFLED. TIER ${tier} LOADED (TURN ${currentTurn}).</div>
   `;
   document.getElementById("logOutput").prepend(entry);
 }
@@ -302,6 +311,9 @@ document.getElementById("nextTurnBtn").addEventListener("click", () => {
      huntDeck = buildHuntDeckForTier(newTier);
      updateStatusUI();
   }
+  
+  if (currentTurn === 4) logDraw("System", {name: "TIER 2", effect: "Add Hazard + Evolve Cards. Remove Tier 1 Hunts."});
+  if (currentTurn === 7) logDraw("System", {name: "TIER 3", effect: "Add Tier 3 Hunts."});
 });
 
 document.getElementById("setTurnBtn").addEventListener("click", () => {
